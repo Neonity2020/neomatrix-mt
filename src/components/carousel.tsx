@@ -38,7 +38,7 @@ function CustomNavigation() {
   );
 }
 
-function customPagination(_, className) {
+function customPagination(_: any, className: string) {
   return `<span class="${className} w-4 h-4 [&.swiper-pagination-bullet-active]:!opacity-100 [&.swiper-pagination-bullet-active]:[background:rgb(var(--color-background))] !opacity-50 ![background:rgb(var(--color-background))]"></span>`;
 }
 
