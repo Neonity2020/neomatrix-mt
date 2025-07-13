@@ -206,16 +206,16 @@ export default function ComplexNavbar() {
             </Accordion.Trigger>
             <Accordion.Content>
               <MenuItem
-                title="@material-tailwind/html"
-                description="Learn how to use @material-tailwind/html, packed with rich components and widgets."
+                title="@neomatrix/note-taking & writing"
+                description="Find your own note-taking system and writing style with @neomatrix/note-taking & writing"
               />
               <MenuItem
-                title="@material-tailwind/react"
-                description="Learn how to use @material-tailwind/react, packed with rich components for React."
+                title="@neomatrix/ai & vibe coding"
+                description="Find your own vibe coding style with @neomatrix/ai & vibe coding"
               />
               <MenuItem
-                title="Material Tailwind PRO"
-                description="A complete set of UI Elements for building faster websites in less time."
+                title="neomatrix/design"
+                description="Find your own design style with @neomatrix/design"
               />
             </Accordion.Content>
           </Accordion.Item>
