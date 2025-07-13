@@ -19,22 +19,22 @@ const LINKS = [
   {
     icon: MultiplePages,
     title: "Note-taking",
-    href: "#note-taking",
+    href: "/noteapp",
   },
   {
     icon: ProfileCircle,
     title: "AI & Vibe Coding",
-    href: "#ai-coding",
+    href: "/noteapp",
   },
   {
     icon: SelectFace3d,
     title: "Design",
-    href: "#design",
+    href: "/design",
   },
   {
     icon: Archive,
     title: "Docs & Resources",
-    href: "#",
+    href: "/docs",
   },
 ];
 
