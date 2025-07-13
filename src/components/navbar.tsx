@@ -64,7 +64,7 @@ function ProfileMenu() {
     <Menu>
       <Menu.Trigger
         as={Avatar}
-        src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/ct-assets/team-4.jpg"
+        src="/images/avatar.webp"
         alt="profile-picture"
         size="sm"
         className="border border-primary p-0.5 lg:ml-auto"
@@ -123,7 +123,7 @@ export default function ComplexNavbar() {
           type="small"
           className="ml-2 mr-2 block py-1 font-semibold"
         >
-          Material Tailwind
+          NeoMatrix
         </Typography>
         <hr className="mx-1 hidden h-5 w-px border-l border-t-0 border-secondary-dark lg:block" />
         <div className="hidden lg:block">
@@ -151,22 +151,22 @@ export default function ComplexNavbar() {
                       type="h6"
                       className="mt-5 text-center leading-snug"
                     >
-                      Material Tailwind PRO
+                      NeoMatrix
                     </Typography>
                   </div>
                 </Card>
                 <ul className="col-span-3 !m-0">
                   <MenuItem
-                    title="@material-tailwind/html"
-                    description="Learn how to use @material-tailwind/html, packed with rich components and widgets."
+                    title="@neomatrix/note-taking & writing"
+                    description="Find your own note-taking system and writing style with @neomatrix/note-taking & writing"
                   />
                   <MenuItem
-                    title="@material-tailwind/react"
-                    description="Learn how to use @material-tailwind/react, packed with rich components for React."
+                    title="@neomatrix/ai & vibe coding"
+                    description="Find your own vibe coding style with @neomatrix/ai & vibe coding"
                   />
                   <MenuItem
-                    title="Material Tailwind PRO"
-                    description="A complete set of UI Elements for building faster websites in less time."
+                    title="neomatrix/design"
+                    description="Find your own design style with @neomatrix/design"
                   />
                 </ul>
                 <Tooltip.Arrow />
