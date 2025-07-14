@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
+import DrawerDemo from "../components/drawer";
+
+type DrawerDemoProps = {
+	open: boolean;
+	onClose: () => void;
+};
 
 export default function Maxim() {
 	const maxim = [
@@ -31,11 +37,14 @@ export default function Maxim() {
 	const initialIndex = today.getDate() % maxim.length;
 	const [index, setIndex] = useState(initialIndex);
 	const [isImgLoaded, setIsImgLoaded] = useState(false);
-
+	
 	const handleNext = () => {
 		setIndex((prev) => (prev + 1) % maxim.length);
 		setIsImgLoaded(false); // 切换quote时重置图片加载状态
 	};
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+	const closeDrawer = () => setIsDrawerOpen(false);
 
 	const todayMaxim = maxim[index];
 
@@ -69,9 +78,15 @@ export default function Maxim() {
                 />
             </div>
         </div>
-		<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
-			<Button onClick={handleNext} className="self-end">下一条</Button>	
+		<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto">
+			<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
+				<Button onClick={handleNext} className="self-end">下一条</Button>	
+			</div>
+			<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
+				<DrawerDemo open={isDrawerOpen} onClose={closeDrawer} />
+			</div>
 		</div>
+		
 		</>
     );
 }
