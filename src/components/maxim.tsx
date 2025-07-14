@@ -36,26 +36,43 @@ export default function Maxim() {
 	const today = new Date();
 	const initialIndex = today.getDate() % maxim.length;
 	const [index, setIndex] = useState(initialIndex);
-	const [isImgLoaded, setIsImgLoaded] = useState(false);
-	
+	const [imgLoadedMap, setImgLoadedMap] = useState<{ [key: string]: boolean }>({});
+
+	// 页面加载时预加载所有头像图片
+	useEffect(() => {
+		const loadedMap: { [key: string]: boolean } = {};
+		let loadedCount = 0;
+		maxim.forEach((item) => {
+			const img = new window.Image();
+			img.src = item.image;
+			if (img.complete) {
+				loadedMap[item.id] = true;
+				loadedCount++;
+			} else {
+				img.onload = () => {
+					loadedMap[item.id] = true;
+					loadedCount++;
+					if (loadedCount === maxim.length) {
+						setImgLoadedMap({ ...loadedMap });
+					}
+				};
+			}
+		});
+		// 如果所有图片都已缓存，直接设置
+		if (loadedCount === maxim.length) {
+			setImgLoadedMap({ ...loadedMap });
+		}
+		// eslint-disable-next-line
+	}, []);
+
 	const handleNext = () => {
 		setIndex((prev) => (prev + 1) % maxim.length);
-		setIsImgLoaded(false); // 切换quote时重置图片加载状态
 	};
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
 	const closeDrawer = () => setIsDrawerOpen(false);
 
 	const todayMaxim = maxim[index];
-
-	// 检查图片是否已缓存加载
-	useEffect(() => {
-		const img = new window.Image();
-		img.src = todayMaxim.image;
-		if (img.complete) {
-			setIsImgLoaded(true);
-		}
-	}, [index, todayMaxim.image]);
 
 	return (
         <>
@@ -66,15 +83,20 @@ export default function Maxim() {
             </div>
             <div className="w-32 flex-shrink-0 h-36 relative">
                 {/* skeleton 占位 */}
-                {!isImgLoaded && (
+                {!imgLoadedMap[todayMaxim.id] && (
                     <div className="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse rounded-lg" />
                 )}
                 <img
                     src={todayMaxim.image}
                     alt={todayMaxim.author}
-                    className={`rounded-lg w-full h-36 object-cover transition-opacity duration-300 ${isImgLoaded ? 'opacity-100' : 'opacity-0'}`}
-                    onLoad={() => setIsImgLoaded(true)}
+                    className={`rounded-lg w-full h-36 object-cover transition-opacity duration-300 ${imgLoadedMap[todayMaxim.id] ? 'opacity-100' : 'opacity-0'}`}
+                    onLoad={() => {
+                        if (!imgLoadedMap[todayMaxim.id]) {
+                            setImgLoadedMap((prev) => ({ ...prev, [todayMaxim.id]: true }));
+                        }
+                    }}
                     style={{ position: "relative" }}
+                    loading="lazy"
                 />
             </div>
         </div>

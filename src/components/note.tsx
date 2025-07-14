@@ -30,6 +30,7 @@ export default function NoteComponent() {
   const [newNote, setNewNote] = React.useState({ title: "", content: "" });
   const [copySuccess, setCopySuccess] = React.useState(false);
   const [showDataMenu, setShowDataMenu] = React.useState(false);
+  const [editingContent, setEditingContent] = React.useState<{ title: string; content: string } | null>(null);
 
   // 从 Local Storage 加载笔记数据
   React.useEffect(() => {
@@ -181,6 +182,24 @@ export default function NoteComponent() {
     }
   };
 
+  const startEditNote = (note: NoteItem) => {
+    setEditingNote(note.id);
+    setEditingContent({ title: note.title, content: note.content });
+  };
+
+  const cancelEditNote = () => {
+    setEditingNote(null);
+    setEditingContent(null);
+  };
+
+  const saveEditNote = (id: string) => {
+    if (editingContent) {
+      updateNote(id, { title: editingContent.title, content: editingContent.content });
+    }
+    setEditingNote(null);
+    setEditingContent(null);
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       {/* 复制成功提示 */}
@@ -308,18 +327,18 @@ export default function NoteComponent() {
                     <input
                       type="text"
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      value={note.title}
-                      onChange={(e) => updateNote(note.id, { title: e.target.value })}
+                      value={editingContent?.title ?? ''}
+                      onChange={(e) => setEditingContent(editingContent ? { ...editingContent, title: e.target.value } : { title: e.target.value, content: '' })}
                     />
                     <Textarea
                       className="min-h-[100px]"
-                      value={note.content}
-                      onChange={(e) => updateNote(note.id, { content: e.target.value })}
+                      value={editingContent?.content ?? ''}
+                      onChange={(e) => setEditingContent(editingContent ? { ...editingContent, content: e.target.value } : { title: '', content: e.target.value })}
                     />
                     <div className="flex gap-2">
                       <Button 
                         size="sm" 
-                        onClick={() => setEditingNote(null)}
+                        onClick={() => saveEditNote(note.id)}
                         className="flex items-center gap-2"
                       >
                         <Check className="h-4 w-4" />
@@ -328,7 +347,7 @@ export default function NoteComponent() {
                       <Button 
                         size="sm" 
                         variant="outline"
-                        onClick={() => setEditingNote(null)}
+                        onClick={cancelEditNote}
                       >
                         取消
                       </Button>
@@ -352,7 +371,7 @@ export default function NoteComponent() {
                         <IconButton
                           size="sm"
                           variant="ghost"
-                          onClick={() => setEditingNote(note.id)}
+                          onClick={() => startEditNote(note)}
                           title="编辑笔记"
                         >
                           <Edit className="h-4 w-4" />
