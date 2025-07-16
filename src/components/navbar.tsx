@@ -147,41 +147,41 @@ export default function ComplexNavbar() {
   }, []);
 
   return (
-    <Navbar className="mx-auto w-full max-w-screen-xl">
+    <Navbar className="mx-auto w-full max-w-screen-xl dark:bg-gray-950 dark:text-gray-100">
       <div className="flex items-center">
         <Typography
           as="a"
           href="/"
           type="small"
-          className="ml-2 mr-2 block py-1 font-semibold"
+          className="ml-2 mr-2 block py-1 font-semibold dark:text-primary-300"
         >
           NeoMatrix
         </Typography>
-        <hr className="mx-1 hidden h-5 w-px border-l border-t-0 border-secondary-dark lg:block" />
+        <hr className="mx-1 hidden h-5 w-px border-l border-t-0 border-secondary-dark lg:block dark:border-gray-700" />
         <div className="hidden lg:block">
-          <List className="mt-4 flex flex-col gap-1 lg:mt-0 lg:flex-row lg:items-center">
+          <List className="mt-4 flex flex-col gap-1 lg:mt-0 lg:flex-row lg:items-center dark:text-gray-100">
             <Tooltip placement="bottom" interactive>
               <Tooltip.Trigger>
-                <List.Item>
+                <List.Item className="dark:text-gray-100">
                   <List.ItemStart className="me-1.5">
                     <MultiplePages className="h-4 w-4" />
                   </List.ItemStart>
-                  <Typography type="small">Pages</Typography>
+                  <Typography type="small" className="dark:text-gray-100">Pages</Typography>
                   <List.ItemEnd className="ps-0.5">
                     <NavArrowDown className="h-3.5 w-3.5 group-data-[open=true]:rotate-180" />
                   </List.ItemEnd>
                 </List.Item>
               </Tooltip.Trigger>
-              <Tooltip.Content className="grid max-w-lg grid-cols-5 gap-1 rounded-lg border border-surface bg-background p-1 shadow-xl shadow-surface/5 dark:border-surface dark:bg-background z-50">
+              <Tooltip.Content className="grid max-w-lg grid-cols-5 gap-1 rounded-lg border border-surface bg-background p-1 shadow-xl shadow-surface/5 dark:border-gray-700 dark:bg-gray-900 z-50">
                 <Card
                   color="primary"
-                  className="col-span-2 grid place-items-center rounded-[5px] px-8 py-4 text-primary-foreground shadow-none"
+                  className="col-span-2 grid place-items-center rounded-[5px] px-8 py-4 text-primary-foreground shadow-none dark:bg-gray-800 dark:text-primary-200"
                 >
                   <div>
                     <Rocket className="mx-auto h-12 w-12" />
                     <Typography
                       type="h6"
-                      className="mt-5 text-center leading-snug"
+                      className="mt-5 text-center leading-snug dark:text-primary-200"
                     >
                       NeoMatrix
                     </Typography>

@@ -42,13 +42,13 @@ import {
     }, []);
     return (
       <Drawer>
-        <Drawer.Trigger as={Button}>💡有启发</Drawer.Trigger>
+        <Drawer.Trigger as={Button} className="dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800">💡有启发</Drawer.Trigger>
         <Drawer.Overlay>
           <div
-            className="fixed top-0 right-0 h-screen z-50"
+            className="fixed top-0 right-0 h-screen z-50 dark:bg-gray-950"
             style={{ width }}
           >
-            <Drawer.Panel className="overflow-y-auto max-h-[100vh] relative h-full" style={{ width }}>
+            <Drawer.Panel className="overflow-y-auto max-h-[100vh] relative h-full dark:bg-gray-900 dark:text-gray-100" style={{ width }}>
               {/* 拖拽条 */}
               <div
                 style={{
@@ -60,22 +60,23 @@ import {
                   cursor: "ew-resize",
                   zIndex: 10,
                 }}
+                className="dark:bg-gray-800"
                 onMouseDown={handleMouseDown}
               />
               <div className="flex items-center justify-between gap-4 mb-4">
-                <Typography type="h6">💡有启发</Typography>
+                <Typography type="h6" className="dark:text-primary-200">💡有启发</Typography>
                 <Drawer.DismissTrigger
                   as={IconButton}
                   size="sm"
                   variant="ghost"
                   color="secondary"
-                  className="absolute right-2 top-2"
+                  className="absolute right-2 top-2 dark:text-gray-300"
                   isCircular
                 >
                   <Xmark className="h-5 w-5" />
                 </Drawer.DismissTrigger>
               </div>
-              <Typography className="mb-6 mt-2 text-foreground">
+              <Typography className="mb-6 mt-2 text-foreground dark:text-gray-200">
                 <ul className="list-disc list-inside">
                   <li className="text-sm mb-2">点击下方的“More”，查看更多金句</li>
                   <li className="text-sm mb-2">点击下方的“Spark Notes”，记录此刻的心得</li>
@@ -83,8 +84,8 @@ import {
                 </ul>
               </Typography>
               <div className="mb-1 flex items-center gap-2">
-                <Button onClick={() => window.location.href = '/noteapp' }>Spark Notes</Button>
-                <Button color="secondary">More</Button>
+                <Button onClick={() => window.location.href = '/noteapp' } className="dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800">Spark Notes</Button>
+                <Button color="secondary" className="dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">More</Button>
               </div>
               <NoteComponent />
             </Drawer.Panel>

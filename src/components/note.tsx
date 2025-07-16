@@ -204,7 +204,7 @@ export default function NoteComponent() {
     <div className="w-full max-w-4xl mx-auto p-4">
       {/* 复制成功提示 */}
       {copySuccess && (
-        <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-opacity duration-300">
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transition-opacity duration-300 dark:bg-green-700">
           复制成功！
         </div>
       )}
@@ -222,18 +222,18 @@ export default function NoteComponent() {
               size="sm"
               variant="outline"
               onClick={() => setShowDataMenu(!showDataMenu)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 dark:border-gray-600 dark:text-gray-200"
             >
               数据管理
             </Button>
             
             {showDataMenu && (
-              <div className="absolute right-0 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg p-2 min-w-[200px] z-10">
+              <div className="absolute right-0 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg p-2 min-w-[200px] z-10 dark:bg-gray-900 dark:border-gray-700">
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={exportNotes}
-                  className="w-full justify-start"
+                  className="w-full justify-start dark:text-gray-200"
                   disabled={notes.length === 0}
                 >
                   导出笔记
@@ -248,19 +248,19 @@ export default function NoteComponent() {
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="w-full justify-start"
+                    className="w-full justify-start dark:text-gray-200"
                     as="span"
                   >
                     导入笔记
                   </Button>
                 </label>
-                <hr className="my-2" />
+                <hr className="my-2 dark:border-gray-700" />
                 <Button
                   size="sm"
                   variant="ghost"
                   color="error"
                   onClick={clearAllNotes}
-                  className="w-full justify-start"
+                  className="w-full justify-start dark:text-red-400"
                   disabled={notes.length === 0}
                 >
                   清空所有笔记
@@ -271,8 +271,8 @@ export default function NoteComponent() {
         </div>
         
         {/* 新建笔记区域 */}
-        <Card className="mb-6">
-          <CardHeader className="flex items-center gap-2">
+        <Card className="mb-6 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100">
+          <CardHeader className="flex items-center gap-2 dark:bg-gray-800 dark:text-gray-100">
             <Plus className="h-5 w-5" />
             <Typography variant="h6">新建笔记</Typography>
           </CardHeader>
@@ -281,20 +281,20 @@ export default function NoteComponent() {
               <input
                 type="text"
                 placeholder="笔记标题..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
                 value={newNote.title}
                 onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
               />
               <Textarea
                 placeholder="开始写笔记..."
-                className="min-h-[100px]"
+                className="min-h-[100px] dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
                 value={newNote.content}
                 onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
               />
               <Button 
                 onClick={addNote}
                 disabled={!newNote.title.trim() && !newNote.content.trim()}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800"
               >
                 <Plus className="h-4 w-4" />
                 添加笔记
@@ -307,31 +307,31 @@ export default function NoteComponent() {
       {/* 笔记列表 */}
       <div className="space-y-4">
         {notes.length === 0 ? (
-          <Card>
+          <Card className="dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100">
             <CardBody className="text-center py-8">
-              <Notes className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-              <Typography variant="h6" color="secondary" className="mb-2">
+              <Notes className="h-12 w-12 mx-auto mb-4 text-gray-400 dark:text-gray-600" />
+              <Typography variant="h6" color="secondary" className="mb-2 dark:text-gray-200">
                 还没有笔记
               </Typography>
-              <Typography color="secondary">
+              <Typography color="secondary" className="dark:text-gray-400">
                 点击上方"添加笔记"开始记录您的想法
               </Typography>
             </CardBody>
           </Card>
         ) : (
           notes.map((note) => (
-            <Card key={note.id} className="hover:shadow-lg transition-shadow">
+            <Card key={note.id} className="hover:shadow-lg transition-shadow dark:bg-gray-900 dark:border-gray-700 dark:text-gray-100">
               <CardBody>
                 {editingNote === note.id ? (
                   <div className="space-y-4">
                     <input
                       type="text"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
                       value={editingContent?.title ?? ''}
                       onChange={(e) => setEditingContent(editingContent ? { ...editingContent, title: e.target.value } : { title: e.target.value, content: '' })}
                     />
                     <Textarea
-                      className="min-h-[100px]"
+                      className="min-h-[100px] dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
                       value={editingContent?.content ?? ''}
                       onChange={(e) => setEditingContent(editingContent ? { ...editingContent, content: e.target.value } : { title: '', content: e.target.value })}
                     />
@@ -339,7 +339,7 @@ export default function NoteComponent() {
                       <Button 
                         size="sm" 
                         onClick={() => saveEditNote(note.id)}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800"
                       >
                         <Check className="h-4 w-4" />
                         保存
@@ -348,6 +348,7 @@ export default function NoteComponent() {
                         size="sm" 
                         variant="outline"
                         onClick={cancelEditNote}
+                        className="dark:border-gray-600 dark:text-gray-200"
                       >
                         取消
                       </Button>
@@ -365,6 +366,7 @@ export default function NoteComponent() {
                           variant="ghost"
                           onClick={() => copyToClipboard(`${note.title}\n\n${note.content}`)}
                           title="复制笔记内容"
+                          className="dark:text-gray-300"
                         >
                           <Copy className="h-4 w-4" />
                         </IconButton>
@@ -373,6 +375,7 @@ export default function NoteComponent() {
                           variant="ghost"
                           onClick={() => startEditNote(note)}
                           title="编辑笔记"
+                          className="dark:text-gray-300"
                         >
                           <Edit className="h-4 w-4" />
                         </IconButton>
@@ -382,15 +385,16 @@ export default function NoteComponent() {
                           color="error"
                           onClick={() => deleteNote(note.id)}
                           title="删除笔记"
+                          className="dark:text-red-400"
                         >
                           <Trash className="h-4 w-4" />
                         </IconButton>
                       </div>
                     </div>
-                    <Typography className="mb-3 whitespace-pre-wrap">
+                    <Typography className="mb-3 whitespace-pre-wrap dark:text-gray-200">
                       {note.content}
                     </Typography>
-                    <Typography variant="small" color="secondary" className="text-right">
+                    <Typography variant="small" color="secondary" className="text-right dark:text-gray-400">
                       {formatDate(note.createdAt)}
                     </Typography>
                   </div>

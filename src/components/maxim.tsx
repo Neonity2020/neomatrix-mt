@@ -77,14 +77,14 @@ export default function Maxim() {
 	return (
         <>
         <div className="flex flex-row gap-4 items-center max-w-[375px] md:max-w-[684px] mx-auto">
-            <div className="flex-1 flex flex-col gap-4 bg-gray-100 rounded-lg h-36 pt-8 pr-8">
-                <h2 className="text-lg font-bold pl-4 md:pl-8">{todayMaxim.quote}</h2>
-                <p className="text-gray-600 text-sm text-right">——{todayMaxim.author}</p>
+            <div className="flex-1 flex flex-col gap-4 bg-gray-100 rounded-lg h-36 pt-8 pr-8 dark:bg-gray-900 dark:text-gray-100">
+                <h2 className="text-lg font-bold pl-4 md:pl-8 dark:text-gray-100">{todayMaxim.quote}</h2>
+                <p className="text-gray-600 text-sm text-right dark:text-gray-400">——{todayMaxim.author}</p>
             </div>
             <div className="w-32 flex-shrink-0 h-36 relative">
                 {/* skeleton 占位 */}
                 {!imgLoadedMap[todayMaxim.id] && (
-                    <div className="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse rounded-lg" />
+                    <div className="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse rounded-lg dark:bg-gray-800" />
                 )}
                 <img
                     src={todayMaxim.image}
@@ -102,7 +102,7 @@ export default function Maxim() {
         </div>
 		<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto">
 			<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
-				<Button onClick={handleNext} className="self-end">下一条</Button>
+				<Button onClick={handleNext} className="self-end dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800">下一条</Button>
 			</div>
 			<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
 				<DrawerDemo open={isDrawerOpen} onClose={closeDrawer} />
