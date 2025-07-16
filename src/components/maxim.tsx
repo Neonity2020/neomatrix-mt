@@ -1,41 +1,14 @@
 import { useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import DrawerDemo from "../components/drawer";
+import maxim from "./maxim-data";
 
 type DrawerDemoProps = {
 	open: boolean;
 	onClose: () => void;
 };
 
-export default function Maxim() {
-	const maxim = [
-		{
-			quote: "不写，就无法思考。",
-			id: "0",
-			description: "费曼学习法的核心是输出，而输出最好的方式就是写作。",
-			author: "理查德·费曼",
-			image: "/images/feynman.jpg",
-		},
-		{
-			quote: "不要用别人的尺子，去丈量自己的人生。",
-			id: "1",
-			description: "不要用别人的尺子，去丈量自己的人生。聪明人都是用自己的尺子去丈量别人的人生。",
-			author: "凯文·凯利",
-			image: "/images/KK.jpg",
-		},
-		{
-			quote: "自我产品化",
-			id: "2",
-			description: "自我产品化，是个人品牌建设的重要途径。",
-			author: "纳瓦尔·拉维坎特",
-			image: "/images/naval.jpg",
-		},
-		// ...可以继续添加更多 quote
-	];
-
-	const today = new Date();
-	const initialIndex = today.getDate() % maxim.length;
-	const [index, setIndex] = useState(initialIndex);
+export default function Maxim({ index, onNext }: { index: number; onNext: () => void }) {
 	const [imgLoadedMap, setImgLoadedMap] = useState<{ [key: string]: boolean }>({});
 
 	// 页面加载时预加载所有头像图片
@@ -64,13 +37,6 @@ export default function Maxim() {
 		}
 		// eslint-disable-next-line
 	}, []);
-
-	const handleNext = () => {
-		setIndex((prev) => (prev + 1) % maxim.length);
-	};
-	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-	const closeDrawer = () => setIsDrawerOpen(false);
 
 	const todayMaxim = maxim[index];
 
@@ -102,10 +68,10 @@ export default function Maxim() {
         </div>
 		<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto">
 			<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
-				<Button onClick={handleNext} className="self-end dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800">下一条</Button>
+				<Button onClick={onNext} className="self-end dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800">下一条</Button>
 			</div>
 			<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
-				<DrawerDemo open={isDrawerOpen} onClose={closeDrawer} />
+				<DrawerDemo open={false} onClose={() => {}} />
 			</div>
 		</div>
 		

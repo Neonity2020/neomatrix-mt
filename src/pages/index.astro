@@ -1,8 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import Navbar from "../components/navbar.tsx"
-import CarouselDemo from "../components/carousel.tsx"
-import Maxim from "../components/maxim.tsx"
+import MaximCarouselContainer from "../components/MaximCarouselContainer";
 ---
 
 <Layout title="NeoMatrix">
@@ -20,10 +19,7 @@ import Maxim from "../components/maxim.tsx"
 				<Navbar client:load />
 			</div>
 				<div class="max-w-[375px] mx-auto mt-4 md:max-w-[684px] md:mx-auto">
-					<CarouselDemo client:load />
-				</div>
-				<div class="max-w-[375px] mx-auto mt-4 md:max-w-[684px] md:mx-auto">
-					<Maxim client:load />
+					<MaximCarouselContainer client:load />
 				</div>
 		</main>
 	</body>
