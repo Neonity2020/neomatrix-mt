@@ -24,6 +24,8 @@ import {
   Settings,
   UserCircle,
   Xmark,
+  SunLight,
+  HalfMoon,
 } from "iconoir-react";
 
 const LINKS = [
@@ -86,6 +88,36 @@ function ProfileMenu() {
         </Menu.Item>
       </Menu.Content>
     </Menu>
+  );
+}
+
+function ThemeToggleButton() {
+  const [isDark, setIsDark] = React.useState(() => {
+    if (typeof window !== "undefined") {
+      return document.documentElement.classList.contains("dark");
+    }
+    return false;
+  });
+
+  React.useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDark]);
+
+  return (
+    <IconButton
+      size="sm"
+      variant="ghost"
+      color="secondary"
+      aria-label="切换主题"
+      className="ml-2"
+      onClick={() => setIsDark((v) => !v)}
+    >
+      {isDark ? <SunLight className="h-5 w-5" /> : <HalfMoon className="h-5 w-5" />}
+    </IconButton>
   );
 }
 
@@ -175,6 +207,7 @@ export default function ComplexNavbar() {
             <NavList />
           </List>
         </div>
+        <ThemeToggleButton />
         <IconButton
           size="sm"
           variant="ghost"

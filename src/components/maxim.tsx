@@ -102,7 +102,7 @@ export default function Maxim() {
         </div>
 		<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto">
 			<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
-				<Button onClick={handleNext} className="self-end">下一条</Button>	
+				<Button onClick={handleNext} className="self-end">下一条</Button>
 			</div>
 			<div className="flex flex-row gap-4 items-center max-w-[684px] mx-auto mt-4">
 				<DrawerDemo open={isDrawerOpen} onClose={closeDrawer} />
