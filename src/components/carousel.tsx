@@ -54,6 +54,7 @@ export default function CarouselDemo({ index, onIndexChange }: { index: number; 
     "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1600&auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG5hdHVyZXxlbnwwfDB8MHx8fDA%3D",
     "https://images.sonurai.com/PerseidsPine.jpg",
     "https://img.peapix.com/acb53d03d0ca4d9f9074a84eef5cd6c0_UHD.jpg",
+    "https://img.peapix.com/232022837c684565839256c02f0d5619_UHD.jpg",
   ];
   // 受控索引
   useEffect(() => {

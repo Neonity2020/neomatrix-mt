@@ -1,26 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import Navbar from "../components/navbar.tsx"
 import MaximCarouselContainer from "../components/MaximCarouselContainer";
 ---
 
 <Layout title="NeoMatrix">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>NeoMatrix</title>
-	</head>
-	<body>
-		<main>
-
-			<div class="max-w-[375px] mx-auto mt-4 md:max-w-[768px] md:mx-auto">
-				<Navbar client:load />
-			</div>
+	<main>
 				<div class="max-w-[375px] mx-auto mt-4 md:max-w-[684px] md:mx-auto">
 					<MaximCarouselContainer client:load />
 				</div>
-		</main>
-	</body>
+	</main>
 </Layout>

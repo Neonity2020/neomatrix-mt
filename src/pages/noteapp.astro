@@ -1,24 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import Navbar from "../components/navbar.tsx"
 import NoteComponent from "../components/note.tsx"
 ---
 
 <Layout title="Note">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Note</title>
-	</head>
-	<body>
-		<main>
-			<div class="mt-4 sticky top-0 z-10">
-				<Navbar client:load />
+	<main>
+			<div class="mt-4 sticky max-w-[375px] mx-auto md:max-w-[684px] md:mx-auto top-0 z-10">
 				<NoteComponent client:load />
 			</div>
-
-		</main>
-	</body>
+	</main>
 </Layout>

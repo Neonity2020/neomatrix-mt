@@ -83,8 +83,8 @@ import {
                   <li className="text-sm mb-2">您也可以在当前页面的下方快速记录笔记</li>
                 </ul>
               </Typography>
-              <div className="mb-1 flex items-center gap-2">
-                <Button onClick={() => window.location.href = '/noteapp' } className="dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800">Spark Notes</Button>
+              <div className="mb-1 flex items-center gap-6">
+                <Button onClick={() => window.location.href = '/noteapp'} className="dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800">Spark Notes</Button>
                 <Button color="secondary" className="dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">More</Button>
               </div>
               <NoteComponent />

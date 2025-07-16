@@ -1,5 +1,6 @@
 ---
 import ThemeProvider from "../components/theme-provider";
+import Navbar from "../components/navbar.tsx";
 export interface Props {
   title: string;
   metaDescription?: string;
@@ -18,11 +19,26 @@ const { title, metaDescription } = Astro.props;
     <meta name="description" content={metaDescription} />
     <meta name="generator" content={Astro.generator} />
     <!-- <BaseHead title={title}/> -->
+    <script>
+      (function() {
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <ThemeProvider client:only="react">
       <div class="tech-bg" style="z-index: -1; opacity: 0.7;"></div>
       <article>
+        <div class="max-w-[375px] mx-auto mt-4 md:max-w-[684px] md:mx-auto">
+          <Navbar client:load />
+        </div>
         <slot /> <!-- your content is injected here -->
       </article>
     </ThemeProvider>
