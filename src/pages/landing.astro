@@ -1,5 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro"
+// import CategoriesSection from "../components/landing/CategoriesSection.tsx"
+// import ContentSection from "../components/landing/ContentSection.tsx"
+// import BasicSection from "../components/landing/BasicSection.tsx"
+// import TestimonialSection from "../components/landing/TestimonialSection.tsx"
+// import FooterSection from "../components/landing/FooterSection.tsx"
 ---
 
 <Layout title="NeoMatrix">
@@ -10,4 +15,12 @@ import Layout from "../layouts/Layout.astro"
 		<meta name="generator" content={Astro.generator} />
 		<title>NeoMatrix</title>
 	</head>
+    <main>
+        <h1 class="text-center text-2xl font-bold mt-10 dark:text-white">Landing Page</h1>
+        <!-- <CategoriesSection client:only="react" />
+        <ContentSection client:only="react" />
+        <BasicSection client:only="react" />
+        <TestimonialSection client:only="react" />
+        <FooterSection client:only="react" /> -->
+      </main>
 </Layout>

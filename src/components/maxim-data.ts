@@ -35,11 +35,11 @@ const maxim = [
     image: "/images/KK.jpg",
   },
   {
-    quote: "不要用别人的尺子，去丈量自己的人生。",
+    quote: "Attention is all you need",
     id: "6",
-    description: "不要用别人的尺子，去丈量自己的人生。聪明人都是用自己的尺子去丈量别人的人生。",
-    author: "凯文·凯利",
-    image: "/images/KK.jpg",
+    description: "Attention is all you need. 注意力是稀缺资源。",
+    author: "Ashish Vaswani",
+    image: "/images/vaswani.jpg",
   },
   {
     quote: "不要用别人的尺子，去丈量自己的人生。",
