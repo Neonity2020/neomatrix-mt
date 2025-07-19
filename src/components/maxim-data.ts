@@ -42,11 +42,11 @@ const maxim = [
     image: "/images/vaswani.jpg",
   },
   {
-    quote: "不要用别人的尺子，去丈量自己的人生。",
+    quote: "写作剥夺了人们的记忆",
     id: "7",
-    description: "不要用别人的尺子，去丈量自己的人生。聪明人都是用自己的尺子去丈量别人的人生。",
-    author: "凯文·凯利",
-    image: "/images/KK.jpg",
+    description: "Writing removes the need to remember",
+    author: "苏格拉底",
+    image: "/images/socrates.jpg",
   },
   {
     quote: "不要用别人的尺子，去丈量自己的人生。",

@@ -26,6 +26,7 @@ import {
   Xmark,
   SunLight,
   HalfMoon,
+  Github,
 } from "iconoir-react";
 
 const LINKS = [
@@ -44,13 +45,19 @@ const LINKS = [
     title: "Docs",
     href: "#",
   },
+  {
+    icon: Github,
+    title: "Github",
+    href: "https://github.com/neonity2020",
+    target: "_blank",
+  },
 ];
 
 function NavList() {
   return (
     <>
-      {LINKS.map(({ icon: Icon, title, href }) => (
-        <List.Item key={title} as="a" href={href}>
+      {LINKS.map(({ icon: Icon, title, href, target }) => (
+        <List.Item key={title} as="a" href={href} target={target}>
           <List.ItemStart className="mr-1.5">
             <Icon className="h-4 w-4" />
           </List.ItemStart>
@@ -179,14 +186,16 @@ export default function ComplexNavbar() {
               </Tooltip.Trigger>
               <Tooltip.Content className="grid max-w-lg grid-cols-5 gap-1 rounded-lg border border-surface bg-background p-1 shadow-xl shadow-surface/5 dark:border-gray-700 dark:bg-gray-900 z-50">
                 <Card
+                  as="a"
+                  href="/landing"
                   color="primary"
-                  className="col-span-2 grid place-items-center rounded-[5px] px-8 py-4 text-primary-foreground shadow-none dark:bg-gray-800 dark:text-primary-200"
+                  className="col-span-2 grid place-items-center rounded-[5px] px-8 py-4 text-primary-foreground shadow-none dark:bg-gray-800 dark:text-gray-100 cursor-pointer hover:opacity-90 transition-opacity"
                 >
                   <div>
                     <Rocket className="mx-auto h-12 w-12" />
                     <Typography
                       type="h6"
-                      className="mt-5 text-center leading-snug dark:text-primary-200"
+                      className="mt-5 text-center leading-snug dark:text-gray-100"
                     >
                       NeoMatrix
                     </Typography>
