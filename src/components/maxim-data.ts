@@ -56,11 +56,11 @@ const maxim = [
     image: "/images/KK.jpg",
   },
   {
-    quote: "不要用别人的尺子，去丈量自己的人生。",
+    quote: "不要重复你自己",
     id: "9",
-    description: "不要用别人的尺子，去丈量自己的人生。聪明人都是用自己的尺子去丈量别人的人生。",
-    author: "凯文·凯利",
-    image: "/images/KK.jpg",
+    description: "Do not repeat yourself. 不要重复你自己",
+    author: "Linus Torvalds",
+    image: "/images/linus.jpg",
   },
   {
     quote: "不要用别人的尺子，去丈量自己的人生。",
@@ -68,6 +68,13 @@ const maxim = [
     description: "不要用别人的尺子，去丈量自己的人生。聪明人都是用自己的尺子去丈量别人的人生。",
     author: "凯文·凯利",
     image: "/images/KK.jpg",
+  },
+  {
+    quote: "纳瓦尔宝典 - 杠杆效应",
+    id: "11",
+    description: "要想获得财富，就必须充分利用杠杆效应。商业杠杆来自资本、劳动力和复制边际成本为零的产品（代码和媒体）。",
+    author: "纳瓦尔·拉维坎特",
+    image: "/images/naval.jpg",
   },
   // ...可以继续添加更多 quote
 ];

@@ -57,6 +57,8 @@ export default function CarouselDemo({ index, onIndexChange }: { index: number; 
  
     "https://img.peapix.com/acb53d03d0ca4d9f9074a84eef5cd6c0_UHD.jpg",
     "https://img.peapix.com/07d2cc633425483ba93334a76ea1e7ca_UHD.jpg",
+    "https://img.peapix.com/bb3e623b1a5e49579a3c1f16385a651f_UHD.jpg",
+    "https://img.peapix.com/bab09aaf0c664d4b94511839a20b6adc_UHD.jpg",
  
   ];
   // 受控索引

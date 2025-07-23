@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import MaximCarouselContainer from '../MaximCarouselContainer';
 
 interface BlogPost {
   id: number;
@@ -9,19 +10,7 @@ interface BlogPost {
   category: string;
 }
 
-interface DailyQuote {
-  text: string;
-  author: string;
-  category: string;
-}
-
 const ContentSection: React.FC = () => {
-  const [dailyQuote, setDailyQuote] = useState<DailyQuote>({
-    text: "知识就是力量，但智慧才是真正的财富。",
-    author: "弗朗西斯·培根",
-    category: "哲学"
-  });
-
   const [recentBlogs, setRecentBlogs] = useState<BlogPost[]>([
     {
       id: 1,
@@ -49,38 +38,8 @@ const ContentSection: React.FC = () => {
     }
   ]);
 
-  // 模拟获取每日金句
-  useEffect(() => {
-    const quotes = [
-      { text: "知识就是力量，但智慧才是真正的财富。", author: "弗朗西斯·培根", category: "哲学" },
-      { text: "成功不是偶然的，而是通过持续的努力和正确的方向实现的。", author: "罗伯特·舒勒", category: "成功学" },
-      { text: "创新是区分领导者和追随者的关键。", author: "史蒂夫·乔布斯", category: "创新" },
-      { text: "学习是一个终身的过程，每一天都是新的开始。", author: "孔子", category: "教育" },
-      { text: "技术应该服务于人类，而不是相反。", author: "艾伦·凯", category: "技术" }
-    ];
-    
-    const today = new Date().getDate();
-    const selectedQuote = quotes[today % quotes.length];
-    setDailyQuote(selectedQuote);
-  }, []);
-
   return (
     <div className="max-w-[375px] mx-auto mt-4 md:max-w-[684px] md:mx-auto">
-      {/* 每日金句部分 - 参考首页maxim组件的样式 */}
-      <div className="flex flex-row gap-4 items-center mb-6">
-        <div className="flex-1 flex flex-col gap-4 bg-gray-100 rounded-lg h-36 pt-8 pr-8 dark:bg-gray-900 dark:text-gray-100">
-          <h2 className="text-lg font-bold pl-4 md:pl-8 dark:text-gray-100">{dailyQuote.text}</h2>
-          <p className="text-gray-600 text-sm text-right dark:text-gray-400">——{dailyQuote.author}</p>
-        </div>
-        <div className="w-32 flex-shrink-0 h-36 relative">
-          <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-
       {/* 最近博客部分 */}
       <div className="bg-gray-100 rounded-lg p-6 dark:bg-gray-900 dark:text-gray-100">
         <div className="flex items-center justify-between mb-6">
