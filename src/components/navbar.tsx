@@ -32,8 +32,8 @@ import {
 const LINKS = [
   {
     icon: ProfileCircle,
-    title: "Account",
-    href: "#",
+    title: "About",
+    href: "/about",
   },
   {
     icon: SelectFace3d,
@@ -42,8 +42,8 @@ const LINKS = [
   },
   {
     icon: Archive,
-    title: "Docs",
-    href: "#",
+    title: "Maxim",
+    href: "/",
   },
   {
     icon: Github,

@@ -1,22 +1,32 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import Maxim from "../components/maxim"
+// import Maxim from "../components/maxim"
+// import maximData from "../components/maxim-data";
+// import { useState } from "react";
 // import CategoriesSection from "../components/landing/CategoriesSection.tsx"
 import ContentSection from "../components/landing/ContentSection.tsx"
-// import BasicSection from "../components/landing/BasicSection.tsx"
-// import TestimonialSection from "../components/landing/TestimonialSection.tsx"
-// import FooterSection from "../components/landing/FooterSection.tsx"
+import MaximWrapper from "../components/landing/MaximWrapper";
+import { getCollection } from 'astro:content';
+
+const rawBlogs = await getCollection('blog');
+const blogs = rawBlogs.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  excerpt: post.data.excerpt ?? '',
+  date: post.data.date instanceof Date ? post.data.date.toISOString().slice(0, 10) : post.data.date,
+  readTime: '5分钟', // 可根据内容长度估算，这里先写死
+  category: post.data.category ?? ''
+}));
 ---
 
 <Layout title="NeoMatrix">
-
-    <main>
-        <h1 class="text-center text-2xl font-bold mt-10 dark:text-white mb-10">Landing Page</h1>
-        <Maxim client:only="react" index={0} onNext={() => {}} />
-        <!-- <CategoriesSection client:only="react" /> -->
-        <ContentSection client:only="react" />
-        <!-- <BasicSection client:only="react" /> -->
-        <!-- <TestimonialSection client:only="react" /> -->
-        <!-- <FooterSection client:only="react" /> -->
-      </main>
+  <main>
+    <h1 class="text-center text-2xl font-bold mt-10 dark:text-white mb-10">Landing Page</h1>
+    <MaximWrapper client:only="react" />
+    <!-- <CategoriesSection client:only="react" /> -->
+    <ContentSection client:only="react" blogs={blogs} />
+    <!-- <BasicSection client:only="react" /> -->
+    <!-- <TestimonialSection client:only="react" /> -->
+    <!-- <FooterSection client:only="react" /> -->
+  </main>
 </Layout>
