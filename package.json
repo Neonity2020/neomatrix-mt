@@ -18,7 +18,11 @@
     "iconoir-react": "^7.11.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "shiki": "^3.8.1",
     "swiper": "^11.2.10",
     "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16"
   }
 }

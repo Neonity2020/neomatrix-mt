@@ -37,8 +37,8 @@ const LINKS = [
   },
   {
     icon: SelectFace3d,
-    title: "Blocks",
-    href: "#",
+    title: "Blog",
+    href: "/blog",
   },
   {
     icon: Archive,

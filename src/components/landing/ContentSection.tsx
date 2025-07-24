@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import MaximCarouselContainer from '../MaximCarouselContainer';
 
 interface BlogPost {
   id: number;

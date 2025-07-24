@@ -1,0 +1,45 @@
+---
+import BlogPost from '../../layouts/BlogPost.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id }
+  }));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const { slug } = Astro.params;
+const posts = await getCollection('blog');
+const post = posts.find(p => p.id === slug);
+const { Content } = await render(post as unknown as Props);
+---
+
+<BlogPost
+  title={post ? post.data.title : '未找到'}
+  author={post?.data.author}
+  date={post?.data.date}
+  cover={post?.data.cover}
+  excerpt={post?.data.excerpt}
+>
+  {post ? (
+    <article class="prose max-w-3xl mx-auto [&_p]:leading-snug dark:prose-invert dark:text-dark-text">
+      <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
+      <div class="text-gray-500 text-sm mb-4">
+        作者：{post.data.author} ｜ 日期：{post.data.date.toLocaleDateString?.() ?? post.data.date}
+      </div>
+      {post.data.cover && (
+        <img src={post.data.cover} alt={post.data.title} class="w-full rounded-lg mb-6" />
+      )}
+      <div class="mb-6 text-gray-700">{post.data.excerpt}</div>
+      <div class="mt-8">
+        <Content content={post} />
+      </div>
+    </article>
+  ) : (
+    <div class="text-center text-xl text-red-500 py-20">未找到该博客</div>
+  )}
+</BlogPost>

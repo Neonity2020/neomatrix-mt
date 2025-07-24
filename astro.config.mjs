@@ -6,5 +6,11 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), tailwind()]
+  integrations: [react(), tailwind()],
+  markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      theme: 'nord', // 你可以换成 'github-dark', 'dracula', 'monokai', 'light-plus' 等
+    },
+  },
 });

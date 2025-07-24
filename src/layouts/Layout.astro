@@ -66,8 +66,7 @@ const { title, metaDescription } = Astro.props;
       animation: bgMove 10s ease-in-out infinite alternate;
     }
     .dark .tech-bg {
-      /* 极深蓝黑，主色调接近 rgb(2,6,23) */
-      background: radial-gradient(circle at 50% 40%, #020617 0%, #0a1120 60%, #10131a 80%, #020617 100%);
+      background: radial-gradient(circle at 50% 40%, #181c24 0%, #23283a 60%, #2d3344 100%);
     }
     @keyframes bgMove {
       0% { background-position: 0% 50%; }
@@ -82,8 +81,41 @@ const { title, metaDescription } = Astro.props;
       pointer-events: none;
     }
     article {
+      width: 80%;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
+      background: rgba(255,255,255,0.92);
+      color: #222;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.04);
+      transition: background 0.3s, color 0.3s;
+      padding: 10px 10px 50px 10px;
+    }
+    .dark article {
+      background: rgba(24,28,36,0.96);
+      color: #e5e7eb;
+      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.32);
+    }
+    .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+      color: #fff;
+    }
+    .dark a {
+      color: #7dd3fc;
+      text-decoration-thickness: 2px;
+    }
+    .dark a:hover {
+      color: #a5b4fc;
+      text-decoration: underline;
+    }
+    .dark .text-gray-500, .dark .text-gray-700 {
+      color: #b6b8c3 !important;
+    }
+    .dark .border, .dark .rounded-lg, .dark .rounded-md {
+      border-color: #334155 !important;
+    }
+    .dark img {
+      filter: brightness(0.92) contrast(1.08);
     }
   </style>
 </html>

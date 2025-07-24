@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+const posts = await getCollection('blog');
+---
+
+<Layout title="博客列表">
+  <main class="max-w-[684px] mx-auto py-8 px-4 md:max-w-[1024px] md:mx-auto md:px-0 md:py-16">
+    <h1 class="text-3xl font-bold mb-8">博客列表</h1>
+    <ul class="space-y-8">
+      {posts.map(post => (
+        <li class="border rounded-lg p-4 flex gap-4 items-start">
+          {post.data.cover && (
+            <img src={post.data.cover} alt={post.data.title} class="w-32 h-32 object-cover rounded-md" loading="lazy" />
+          )}
+          <div>
+            <a href={`/blog/${post.id}`} class="text-xl font-semibold hover:underline">
+              {post.data.title}
+            </a>
+            <div class="text-gray-500 text-sm mt-1">
+              作者：{post.data.author} ｜ 日期：{post.data.date.toLocaleDateString?.() ?? post.data.date}
+            </div>
+            <p class="mt-2 text-gray-300">{post.data.excerpt}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Layout>
