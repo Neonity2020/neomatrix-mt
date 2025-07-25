@@ -35,7 +35,7 @@ console.log(await getCollection('blog'));
       {post.data.cover && (
         <img src={post.data.cover} alt={post.data.title} class="w-full rounded-lg mb-6" />
       )}
-      <div class="mb-6 text-gray-700">{post.data.excerpt}</div>
+      <div class="mb-6 text-gray-400">{post.data.excerpt}</div>
       <div class="mt-8">
         <Content content={post} />
       </div>
