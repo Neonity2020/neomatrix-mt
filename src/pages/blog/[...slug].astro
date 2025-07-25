@@ -16,7 +16,7 @@ const { slug } = Astro.params;
 const posts = await getCollection('blog');
 const post = posts.find(p => p.id === slug);
 const { Content } = await render(post as unknown as Props);
-console.log(await getCollection('blog'));
+// console.log(await getCollection('blog'));
 ---
 
 <BlogPost
