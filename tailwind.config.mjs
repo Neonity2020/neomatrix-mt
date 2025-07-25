@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ['"Source Han Serif SC"', 'serif'],
+      },
       colors: {
         dark: {
           bg: "#181c24",         // 主背景

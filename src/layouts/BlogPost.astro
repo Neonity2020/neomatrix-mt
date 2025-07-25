@@ -5,6 +5,8 @@ const { title, author, date, cover, excerpt } = Astro.props;
 <Layout title={title} metaDescription={excerpt}>
     <main class="max-w-[684px] mx-auto py-8 px-4 md:max-w-[1024px] md:mx-auto md:px-0 md:py-16 bg-white rounded-2xl shadow-lg dark:bg-dark-bgSoft dark:shadow-2xl dark:rounded-2xl transition-all mt-4">
       <a href="/blog" class="text-blue-600 hover:underline mb-8 inline-block max-w-[375px] md:max-w-none dark:text-dark-accent dark:hover:text-dark-accent2 transition-colors pl-4">← 返回博客列表</a>
-      <slot />
+      <article class="prose max-w-3xl mx-auto [&_p]:leading-snug dark:prose-invert dark:text-dark-text sm:prose-base prose-sm sm:[&_p]:leading-snug [&_h1]:font-serif [&_h2]:font-serif">
+        <slot />
+      </article>
     </main>
 </Layout>
