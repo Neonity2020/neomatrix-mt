@@ -7,16 +7,47 @@ import Layout from "../layouts/Layout.astro"
 import ContentSection from "../components/landing/ContentSection.tsx"
 import MaximWrapper from "../components/landing/MaximWrapper";
 import { getCollection } from 'astro:content';
+import fs from 'fs';
+import path from 'path';
+
+function getBlogContentLength(id: string): { total: number, cn: number, en: number } {
+  const blogDir = path.join(process.cwd(), 'src/content/blog');
+  const filePath = path.join(blogDir, id);
+  console.log('博客文件路径:', filePath);
+  if (!fs.existsSync(filePath)) return { total: 0, cn: 0, en: 0 };
+  const content = fs.readFileSync(filePath, 'utf-8');
+  // 去除 frontmatter
+  const body = content.replace(/^---[\s\S]*?---/, '').trim();
+  // 统计中文字符和英文单词数
+  const cn = (body.match(/[\u4e00-\u9fa5]/g) || []).length;
+  const en = (body.match(/[a-zA-Z0-9]+/g) || []).length;
+  return { total: cn + en, cn, en };
+}
+
+function estimateReadTime(len: number): string {
+  const min = Math.max(1, Math.ceil(len / 300));
+  return `${min}分钟`;
+}
 
 const rawBlogs = await getCollection('blog');
-const blogs = rawBlogs.map((post) => ({
-  id: post.id,
-  title: post.data.title,
-  excerpt: post.data.excerpt ?? '',
-  date: post.data.date instanceof Date ? post.data.date.toISOString().slice(0, 10) : post.data.date,
-  readTime: '5分钟', // 可根据内容长度估算，这里先写死
-  category: post.data.category ?? ''
-}));
+const blogs = rawBlogs
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3)
+  .map((post) => {
+    console.log('getCollection 得到的 id:', post.id);
+    const { total, cn, en } = getBlogContentLength(post.id);
+    return {
+      id: post.id,
+      title: post.data.title,
+      excerpt: post.data.excerpt ?? '',
+      date: post.data.date instanceof Date ? post.data.date.toISOString().slice(0, 10) : post.data.date,
+      readTime: estimateReadTime(total),
+      category: post.data.category ?? '',
+      cnCount: cn,
+      enCount: en,
+      totalCount: total
+    };
+  });
 ---
 
 <Layout title="NeoMatrix">
@@ -25,6 +56,17 @@ const blogs = rawBlogs.map((post) => ({
     <MaximWrapper client:only="react" />
     <!-- <CategoriesSection client:only="react" /> -->
     <ContentSection client:only="react" blogs={blogs} />
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded">
+      <h2 class="text-lg font-bold mb-2">测试：博客字数统计</h2>
+      <ul>
+        {blogs.map(blog => (
+          <li class="mb-2">
+            <span class="font-semibold">{blog.title}</span>：
+            中文字符数 {blog.cnCount}，英文单词数 {blog.enCount}，总字数 {blog.totalCount}
+          </li>
+        ))}
+      </ul>
+    </div>
     <!-- <BasicSection client:only="react" /> -->
     <!-- <TestimonialSection client:only="react" /> -->
     <!-- <FooterSection client:only="react" /> -->

@@ -5,7 +5,7 @@ const posts = await getCollection('blog');
 ---
 
 <Layout title="博客列表">
-  <main class="max-w-[684px] mx-auto py-8 px-4 md:max-w-[1024px] md:mx-auto md:px-0 md:py-16">
+  <main class="max-w-[684px] mx-auto py-8 px-4 md:max-w-[684px] md:mx-auto md:px-0 md:py-16">
     <h1 class="text-3xl font-bold mb-8">博客列表</h1>
     <ul class="space-y-8">
       {posts.map(post => (

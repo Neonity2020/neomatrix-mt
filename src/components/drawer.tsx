@@ -85,7 +85,7 @@ import {
               </Typography>
               <div className="mb-1 flex items-center gap-6">
                 <Button onClick={() => window.location.href = '/noteapp'} className="dark:bg-blue-900 dark:text-gray-100 dark:hover:bg-blue-800">Spark Notes</Button>
-                <Button color="secondary" className="dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">More</Button>
+                <Button onClick={() => window.location.href = '/'} color="secondary" className="dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">More</Button>
               </div>
               <NoteComponent />
             </Drawer.Panel>
