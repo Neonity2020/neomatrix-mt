@@ -27,8 +27,8 @@ const { Content } = await render(post as unknown as Props);
   excerpt={post?.data.excerpt}
 >
   {post ? (
-    <article class="prose max-w-3xl mx-auto [&_p]:leading-snug dark:prose-invert dark:text-dark-text">
-      <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
+    <article class="prose max-w-3xl mx-auto [&_p]:leading-snug dark:prose-invert dark:text-dark-text sm:prose-base prose-sm sm:[&_p]:leading-snug">
+      <h1 class="sm:text-3xl text-2xl font-bold mb-4 leading-tight sm:leading-snug">{post.data.title}</h1>
       <div class="text-gray-500 text-sm mb-4">
         作者：{post.data.author} ｜ 日期：{post.data.date.toLocaleDateString?.() ?? post.data.date}
       </div>
