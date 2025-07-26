@@ -63,9 +63,9 @@ const maxim = [
     image: "/images/linus.jpg",
   },
   {
-    quote: "不要用别人的尺子，去丈量自己的人生。",
+    quote: "你无法单枪匹马地成为一个独树一帜的人",
     id: "10",
-    description: "不要用别人的尺子，去丈量自己的人生。聪明人都是用自己的尺子去丈量别人的人生。",
+    description: "You cannot be a distinctive person alone. 你无法单枪匹马地成为一个独树一帜的人",
     author: "凯文·凯利",
     image: "/images/KK.jpg",
   },
