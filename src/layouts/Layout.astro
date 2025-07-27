@@ -264,7 +264,7 @@ const { title, metaDescription } = Astro.props;
         hyphens: auto !important;
       }
       
-      /* 块级公式优化 */
+      /* 块级公式优化 - 保持横向滚动 */
       .katex-display {
         font-size: 0.85em !important;
         margin: 1em 0 !important;
@@ -276,9 +276,11 @@ const { title, metaDescription } = Astro.props;
         width: auto !important;
         box-sizing: border-box !important;
         position: relative !important;
+        white-space: nowrap !important;
+        display: block !important;
       }
       
-      /* 长公式容器 */
+      /* 长公式容器 - 保持横向滚动 */
       .katex-display > .katex {
         display: inline-block !important;
         text-align: left !important;
@@ -383,6 +385,9 @@ const { title, metaDescription } = Astro.props;
         overflow-x: auto !important;
         box-sizing: border-box !important;
         position: relative !important;
+        white-space: nowrap !important;
+        display: block !important;
+        -webkit-overflow-scrolling: touch !important;
       }
       
       .katex-display > .katex {
@@ -423,7 +428,7 @@ const { title, metaDescription } = Astro.props;
       }
     }
     
-    /* 强制防止公式溢出容器 */
+    /* 强制防止公式溢出容器 - 块级公式保持滚动 */
     .prose .katex-display,
     .katex-display {
       max-width: none !important;
@@ -433,6 +438,9 @@ const { title, metaDescription } = Astro.props;
       margin: 1em 0 !important;
       box-sizing: border-box !important;
       position: relative !important;
+      white-space: nowrap !important;
+      display: block !important;
+      -webkit-overflow-scrolling: touch !important;
     }
     
     /* 行内公式强制约束 */
@@ -451,17 +459,28 @@ const { title, metaDescription } = Astro.props;
     /* 所有KaTeX元素强制约束 */
     .katex,
     .katex * {
-      max-width: 100% !important;
       box-sizing: border-box !important;
+    }
+    
+    /* 块级公式强制不换行 */
+    .katex-display,
+    .katex-display * {
+      max-width: none !important;
+      white-space: nowrap !important;
+      word-wrap: normal !important;
+      word-break: normal !important;
+      overflow-wrap: normal !important;
     }
     
     /* 文章容器强制约束 */
     article .katex-display {
-      max-width: 100% !important;
-      width: 100% !important;
+      max-width: none !important;
+      width: auto !important;
       overflow-x: auto !important;
       margin: 1em 0 !important;
       padding: 0.5em 0 !important;
+      white-space: nowrap !important;
+      display: block !important;
     }
     
     /* 确保父容器不会溢出 */
@@ -478,22 +497,38 @@ const { title, metaDescription } = Astro.props;
     
     /* 特别针对博客文章容器的约束 */
     .prose article,
-    article .prose,
-    .prose .katex-display,
-    article .katex-display {
+    article .prose {
       max-width: 100% !important;
       width: 100% !important;
-      overflow-x: auto !important;
-      overflow-y: hidden !important;
       box-sizing: border-box !important;
     }
     
+    /* 块级公式在文章中的约束 */
+    .prose .katex-display,
+    article .katex-display {
+      max-width: none !important;
+      width: auto !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      box-sizing: border-box !important;
+      white-space: nowrap !important;
+      display: block !important;
+    }
+    
     /* 强制所有数学公式容器约束 */
-    .katex-display,
-    .katex-display *,
     .katex,
     .katex * {
-      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* 块级公式强制不换行约束 */
+    .katex-display,
+    .katex-display * {
+      max-width: none !important;
+      white-space: nowrap !important;
+      word-wrap: normal !important;
+      word-break: normal !important;
+      overflow-wrap: normal !important;
       box-sizing: border-box !important;
     }
     
@@ -549,6 +584,17 @@ const { title, metaDescription } = Astro.props;
         word-break: break-all !important;
         hyphens: auto !important;
         overflow-wrap: break-word !important;
+      }
+      
+      /* 块级公式强制不换行优化 */
+      .katex-display,
+      .katex-display * {
+        word-wrap: normal !important;
+        word-break: normal !important;
+        hyphens: none !important;
+        overflow-wrap: normal !important;
+        white-space: nowrap !important;
+        max-width: none !important;
       }
     }
     
