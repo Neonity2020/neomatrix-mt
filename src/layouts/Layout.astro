@@ -620,96 +620,33 @@ const { title, metaDescription } = Astro.props;
       }
     }
     
-    /* 移除KaTeX内部元素的边框 */
+    /* 保留KaTeX数学符号的边框，只移除容器边框 */
+    /* 保留分数线的边框 */
     .katex .frac-line {
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
+      /* 保留分数线的边框样式 */
     }
     
-    .katex .frac-line[style*="border-bottom-width"] {
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
+    /* 保留其他数学符号的边框 */
+    .katex .sqrt,
+    .katex .delimsizing,
+    .katex .mopen,
+    .katex .mclose,
+    .katex .mord,
+    .katex .mbin,
+    .katex .mrel,
+    .katex .mpunct {
+      /* 保留数学符号的边框样式 */
     }
     
-    /* 移除所有KaTeX内部边框 */
-    .katex * {
+    /* 只移除非数学符号元素的边框 */
+    .katex *:not(.frac-line):not(.sqrt):not(.delimsizing):not(.mopen):not(.mclose):not(.mord):not(.mbin):not(.mrel):not(.mpunct) {
       border: none !important;
       border-width: 0 !important;
-    }
-    
-    /* 特别处理分数线 */
-    .katex .frac-line[style*="border"] {
-      border: none !important;
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
-    }
-    
-    /* 强制覆盖所有内联边框样式 */
-    .katex .frac-line[style*="border-bottom-width"] {
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
-    }
-    
-    /* 使用更高优先级的选择器 */
-    .katex-display .katex .frac-line,
-    .katex .frac-line {
-      border: none !important;
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
-      border-top: none !important;
-      border-left: none !important;
-      border-right: none !important;
-    }
-    
-    /* 覆盖所有可能的边框样式 */
-    .katex *[style*="border"] {
-      border: none !important;
-      border-width: 0 !important;
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
-    }
-    
-    /* 特别处理所有分数线的边框 */
-    .katex .frac-line[style*="border-bottom-width"] {
-      border: none !important;
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
-      border-top: none !important;
-      border-left: none !important;
-      border-right: none !important;
-    }
-    
-    /* 使用最高优先级的选择器覆盖所有边框 */
-    .katex-display .katex .frac-line[style*="border"],
-    .katex .frac-line[style*="border"],
-    .katex *[style*="border-bottom-width"] {
-      border: none !important;
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
-      border-top: none !important;
-      border-left: none !important;
-      border-right: none !important;
-    }
-    
-    /* 使用内联样式覆盖所有边框 */
-    .katex .frac-line[style*="border-bottom-width:0.04em"] {
-      border-bottom-width: 0 !important;
-      border-bottom: none !important;
-    }
-    
-    .katex .frac-line[style*="border-bottom-width:0.049em"] {
-      border-bottom-width: 0 !important;
-      border-bottom: none !important;
-    }
-    
-    /* 全局覆盖所有KaTeX边框 */
-    .katex *[style*="border"] {
-      border: none !important;
-      border-bottom: none !important;
-      border-bottom-width: 0 !important;
-      border-top: none !important;
-      border-left: none !important;
-      border-right: none !important;
+      border-style: none !important;
+      border-color: transparent !important;
+      background: none !important;
+      outline: none !important;
+      box-shadow: none !important;
     }
     
     /* 强制移除所有块级公式的边框 - 最高优先级 */

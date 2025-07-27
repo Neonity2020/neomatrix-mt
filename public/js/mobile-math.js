@@ -67,35 +67,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // 移除所有KaTeX内部边框
+  // 移除KaTeX边框但保留分数线
   function removeKaTeXBorders() {
-    const katexElements = document.querySelectorAll('.katex *');
-    
-    katexElements.forEach((element) => {
-      // 移除所有边框样式
-      element.style.border = 'none';
-      element.style.borderBottom = 'none';
-      element.style.borderTop = 'none';
-      element.style.borderLeft = 'none';
-      element.style.borderRight = 'none';
-      element.style.borderWidth = '0';
-      element.style.borderBottomWidth = '0';
-      element.style.borderTopWidth = '0';
-      element.style.borderLeftWidth = '0';
-      element.style.borderRightWidth = '0';
-      
-      // 特别处理分数线
-      if (element.classList.contains('frac-line')) {
-        element.style.border = 'none';
-        element.style.borderBottom = 'none';
-        element.style.borderBottomWidth = '0';
-      }
-    });
-    
-    // 特别处理块级公式的边框
+    // 只移除块级公式的边框，保留数学符号的边框
     const blockMathElements = document.querySelectorAll('.katex-display');
     blockMathElements.forEach((element) => {
-      // 强制移除所有边框
+      // 移除块级公式本身的边框
       element.style.border = 'none';
       element.style.borderWidth = '0';
       element.style.borderStyle = 'none';
@@ -104,9 +81,29 @@ document.addEventListener('DOMContentLoaded', function() {
       element.style.outline = 'none';
       element.style.boxShadow = 'none';
       
-      // 移除所有子元素的边框
+      // 移除子元素的边框，但保留数学符号的边框
       const childElements = element.querySelectorAll('*');
       childElements.forEach(child => {
+        // 保留分数线的边框
+        if (child.classList.contains('frac-line')) {
+          // 不修改分数线的边框样式
+          return;
+        }
+        
+        // 保留其他数学符号的边框（如根号、括号等）
+        if (child.classList.contains('sqrt') || 
+            child.classList.contains('delimsizing') ||
+            child.classList.contains('mopen') ||
+            child.classList.contains('mclose') ||
+            child.classList.contains('mord') ||
+            child.classList.contains('mbin') ||
+            child.classList.contains('mrel') ||
+            child.classList.contains('mpunct')) {
+          // 不修改数学符号的边框样式
+          return;
+        }
+        
+        // 移除其他元素的边框
         child.style.border = 'none';
         child.style.borderWidth = '0';
         child.style.borderStyle = 'none';
@@ -115,6 +112,36 @@ document.addEventListener('DOMContentLoaded', function() {
         child.style.outline = 'none';
         child.style.boxShadow = 'none';
       });
+    });
+    
+    // 移除行内公式的边框，但保留数学符号
+    const inlineMathElements = document.querySelectorAll('.katex:not(.katex-display) *');
+    inlineMathElements.forEach((element) => {
+      // 保留分数线的边框
+      if (element.classList.contains('frac-line')) {
+        return;
+      }
+      
+      // 保留其他数学符号的边框
+      if (element.classList.contains('sqrt') || 
+          element.classList.contains('delimsizing') ||
+          element.classList.contains('mopen') ||
+          element.classList.contains('mclose') ||
+          element.classList.contains('mord') ||
+          element.classList.contains('mbin') ||
+          element.classList.contains('mrel') ||
+          element.classList.contains('mpunct')) {
+        return;
+      }
+      
+      // 移除其他元素的边框
+      element.style.border = 'none';
+      element.style.borderWidth = '0';
+      element.style.borderStyle = 'none';
+      element.style.borderColor = 'transparent';
+      element.style.background = 'none';
+      element.style.outline = 'none';
+      element.style.boxShadow = 'none';
     });
   }
   
