@@ -184,6 +184,12 @@ const { title, metaDescription } = Astro.props;
       border: 1px solid rgba(255, 165, 0, 0.3) !important;
     }
     
+    /* 深色模式块级公式样式 - 移除边框 */
+    .dark .katex-display {
+      border: none !important;
+      background: none !important;
+    }
+    
     /* Light mode KaTeX styles */
     .katex {
       color: #222;
@@ -191,6 +197,8 @@ const { title, metaDescription } = Astro.props;
     
     .katex-display {
       color: #222;
+      border: none !important;
+      background: none !important;
     }
     
     .katex .mord {
@@ -246,6 +254,24 @@ const { title, metaDescription } = Astro.props;
         page-break-inside: avoid !important;
       }
       
+      /* 块级公式优化 - 移除边框和背景 */
+      .katex-display {
+        border: none !important;
+        background: none !important;
+        font-size: 0.85em !important;
+        margin: 1em 0 !important;
+        padding: 0.5em 0 !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        max-width: none !important;
+        width: auto !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        white-space: nowrap !important;
+        display: block !important;
+      }
+      
       /* 长行内公式换行处理 */
       .katex:not(.katex-display) {
         max-width: 100% !important;
@@ -254,6 +280,12 @@ const { title, metaDescription } = Astro.props;
         position: relative !important;
         background: rgba(0, 0, 0, 0.03) !important;
         border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      }
+      
+      /* 块级公式长公式处理 - 移除边框 */
+      .katex-display {
+        border: none !important;
+        background: none !important;
       }
       
       /* 确保行内公式可以换行 */
@@ -278,6 +310,8 @@ const { title, metaDescription } = Astro.props;
         position: relative !important;
         white-space: nowrap !important;
         display: block !important;
+        border: none !important;
+        background: none !important;
       }
       
       /* 长公式容器 - 保持横向滚动 */
@@ -376,7 +410,10 @@ const { title, metaDescription } = Astro.props;
         word-break: break-all !important;
       }
       
+      /* 超小屏幕块级公式处理 - 移除边框 */
       .katex-display {
+        border: none !important;
+        background: none !important;
         font-size: 0.75em !important;
         margin: 0.8em 0 !important;
         padding: 0.4em 0 !important;
@@ -389,6 +426,8 @@ const { title, metaDescription } = Astro.props;
         display: block !important;
         -webkit-overflow-scrolling: touch !important;
       }
+      
+
       
       .katex-display > .katex {
         padding: 0 0.5em !important;
@@ -441,6 +480,8 @@ const { title, metaDescription } = Astro.props;
       white-space: nowrap !important;
       display: block !important;
       -webkit-overflow-scrolling: touch !important;
+      border: none !important;
+      background: none !important;
     }
     
     /* 行内公式强制约束 */
@@ -481,6 +522,8 @@ const { title, metaDescription } = Astro.props;
       padding: 0.5em 0 !important;
       white-space: nowrap !important;
       display: block !important;
+      border: none !important;
+      background: none !important;
     }
     
     /* 确保父容器不会溢出 */
@@ -513,6 +556,8 @@ const { title, metaDescription } = Astro.props;
       box-sizing: border-box !important;
       white-space: nowrap !important;
       display: block !important;
+      border: none !important;
+      background: none !important;
     }
     
     /* 强制所有数学公式容器约束 */
@@ -530,6 +575,176 @@ const { title, metaDescription } = Astro.props;
       word-break: normal !important;
       overflow-wrap: normal !important;
       box-sizing: border-box !important;
+    }
+    
+    /* 全局块级公式边框移除 */
+    .katex-display {
+      border: none !important;
+      background: none !important;
+      outline: none !important;
+    }
+    
+    /* 强制移除所有块级公式的边框 - 最高优先级 */
+    .katex-display,
+    .katex-display *,
+    .katex-display[style*="border"],
+    .katex-display *[style*="border"] {
+      border: none !important;
+      border-width: 0 !important;
+      border-style: none !important;
+      border-color: transparent !important;
+      background: none !important;
+      outline: none !important;
+    }
+    
+    /* 特别针对移动端和超小屏幕的块级公式边框移除 */
+    @media (max-width: 768px) {
+      .katex-display,
+      .katex-display * {
+        border: none !important;
+        border-width: 0 !important;
+        border-style: none !important;
+        border-color: transparent !important;
+        background: none !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .katex-display,
+      .katex-display * {
+        border: none !important;
+        border-width: 0 !important;
+        border-style: none !important;
+        border-color: transparent !important;
+        background: none !important;
+      }
+    }
+    
+    /* 移除KaTeX内部元素的边框 */
+    .katex .frac-line {
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+    }
+    
+    .katex .frac-line[style*="border-bottom-width"] {
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+    }
+    
+    /* 移除所有KaTeX内部边框 */
+    .katex * {
+      border: none !important;
+      border-width: 0 !important;
+    }
+    
+    /* 特别处理分数线 */
+    .katex .frac-line[style*="border"] {
+      border: none !important;
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+    }
+    
+    /* 强制覆盖所有内联边框样式 */
+    .katex .frac-line[style*="border-bottom-width"] {
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+    }
+    
+    /* 使用更高优先级的选择器 */
+    .katex-display .katex .frac-line,
+    .katex .frac-line {
+      border: none !important;
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+    
+    /* 覆盖所有可能的边框样式 */
+    .katex *[style*="border"] {
+      border: none !important;
+      border-width: 0 !important;
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+    }
+    
+    /* 特别处理所有分数线的边框 */
+    .katex .frac-line[style*="border-bottom-width"] {
+      border: none !important;
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+    
+    /* 使用最高优先级的选择器覆盖所有边框 */
+    .katex-display .katex .frac-line[style*="border"],
+    .katex .frac-line[style*="border"],
+    .katex *[style*="border-bottom-width"] {
+      border: none !important;
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+    
+    /* 使用内联样式覆盖所有边框 */
+    .katex .frac-line[style*="border-bottom-width:0.04em"] {
+      border-bottom-width: 0 !important;
+      border-bottom: none !important;
+    }
+    
+    .katex .frac-line[style*="border-bottom-width:0.049em"] {
+      border-bottom-width: 0 !important;
+      border-bottom: none !important;
+    }
+    
+    /* 全局覆盖所有KaTeX边框 */
+    .katex *[style*="border"] {
+      border: none !important;
+      border-bottom: none !important;
+      border-bottom-width: 0 !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+    
+    /* 强制移除所有块级公式的边框 - 最高优先级 */
+    .katex-display,
+    .katex-display *,
+    .katex-display[style*="border"],
+    .katex-display *[style*="border"],
+    .katex-display[class*="border"],
+    .katex-display *[class*="border"] {
+      border: none !important;
+      border-width: 0 !important;
+      border-style: none !important;
+      border-color: transparent !important;
+      background: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    
+    /* 特别针对所有可能的边框样式 */
+    .katex-display[style*="border:1px"],
+    .katex-display[style*="border: 1px"],
+    .katex-display[style*="border:1px solid"],
+    .katex-display[style*="border: 1px solid"] {
+      border: none !important;
+      border-width: 0 !important;
+      border-style: none !important;
+      border-color: transparent !important;
+    }
+    
+    /* 覆盖所有内联样式 */
+    .katex-display[style*="border"] {
+      border: none !important;
+      border-width: 0 !important;
+      border-style: none !important;
+      border-color: transparent !important;
     }
     
     /* 移动端滚动条样式 */
@@ -570,6 +785,8 @@ const { title, metaDescription } = Astro.props;
       .katex-display {
         min-height: 1.2em;
         padding-bottom: 8px;
+        border: none !important;
+        background: none !important;
       }
       
       /* 长公式容器样式 */
