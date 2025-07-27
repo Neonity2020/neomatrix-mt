@@ -20,6 +20,8 @@ const { title, metaDescription } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <!-- KaTeX CSS for LaTeX math rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" />
+    <!-- Mobile math scroll optimization -->
+    <script src="/js/mobile-math.js" defer></script>
     <!-- <BaseHead title={title}/> -->
     <script>
       (function() {
@@ -206,6 +208,307 @@ const { title, metaDescription } = Astro.props;
     
     .katex .mord.text {
       color: #222;
+    }
+    
+    /* Mobile optimization for KaTeX */
+    @media (max-width: 768px) {
+      /* 行内公式优化 */
+      .katex {
+        font-size: 0.9em !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        box-sizing: border-box !important;
+      }
+      
+      /* 块级公式优化 */
+      .katex-display {
+        font-size: 0.85em !important;
+        margin: 1em 0 !important;
+        padding: 0.5em 0 !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      
+      /* 长公式容器 */
+      .katex-display > .katex {
+        display: block !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        box-sizing: border-box !important;
+      }
+      
+      /* 强制所有KaTeX元素不溢出 */
+      .katex,
+      .katex *,
+      .katex-display,
+      .katex-display * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+      
+      /* 矩阵优化 */
+      .katex .array {
+        overflow-x: auto;
+        max-width: 100%;
+      }
+      
+      /* 分数优化 */
+      .katex .frac-line {
+        min-width: 0.5em;
+      }
+      
+      /* 求和符号优化 */
+      .katex .sum {
+        font-size: 0.9em;
+      }
+      
+      /* 积分符号优化 */
+      .katex .op-symbol.large-op {
+        font-size: 0.9em;
+      }
+      
+      /* 上标下标优化 */
+      .katex .sup, .katex .sub {
+        font-size: 0.8em;
+      }
+      
+      /* 根号优化 */
+      .katex .sqrt {
+        font-size: 0.9em;
+      }
+      
+      /* 括号优化 */
+      .katex .delimsizing {
+        font-size: 0.9em;
+      }
+    }
+    
+    /* 超小屏幕优化 */
+    @media (max-width: 480px) {
+      .katex {
+        font-size: 0.8em !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        box-sizing: border-box !important;
+      }
+      
+      .katex-display {
+        font-size: 0.75em !important;
+        margin: 0.8em 0 !important;
+        padding: 0.4em 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        box-sizing: border-box !important;
+      }
+      
+      .katex-display > .katex {
+        padding: 0 0.5em !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        box-sizing: border-box !important;
+      }
+      
+      /* 长公式滚动提示 */
+      .katex-display::after {
+        content: "← 滑动查看更多 →";
+        display: block;
+        text-align: center;
+        font-size: 0.7em;
+        color: #666;
+        margin-top: 0.3em;
+        opacity: 0.7;
+      }
+      
+      .dark .katex-display::after {
+        color: #999;
+      }
+    }
+    
+    /* 横屏优化 */
+    @media (max-width: 768px) and (orientation: landscape) {
+      .katex-display {
+        font-size: 0.9em;
+      }
+      
+      .katex {
+        font-size: 0.95em;
+      }
+    }
+    
+    /* 强制防止公式溢出容器 */
+    .prose .katex-display,
+    .katex-display {
+      max-width: 100% !important;
+      width: 100% !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      margin: 1em 0 !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* 行内公式强制约束 */
+    .prose .katex:not(.katex-display),
+    .katex:not(.katex-display) {
+      white-space: nowrap !important;
+      overflow-x: auto !important;
+      display: inline-block !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* 所有KaTeX元素强制约束 */
+    .katex,
+    .katex * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* 文章容器强制约束 */
+    article .katex-display {
+      max-width: 100% !important;
+      width: 100% !important;
+      overflow-x: auto !important;
+      margin: 1em 0 !important;
+      padding: 0.5em 0 !important;
+    }
+    
+    /* 确保父容器不会溢出 */
+    .prose,
+    article,
+    main,
+    div,
+    body,
+    html {
+      overflow-x: hidden !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* 特别针对博客文章容器的约束 */
+    .prose article,
+    article .prose,
+    .prose .katex-display,
+    article .katex-display {
+      max-width: 100% !important;
+      width: 100% !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* 强制所有数学公式容器约束 */
+    .katex-display,
+    .katex-display *,
+    .katex,
+    .katex * {
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* 移动端滚动条样式 */
+    @media (max-width: 768px) {
+      .katex-display::-webkit-scrollbar {
+        height: 4px;
+      }
+      
+      .katex-display::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 2px;
+      }
+      
+      .katex-display::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 2px;
+      }
+      
+      .katex-display::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+      
+      .dark .katex-display::-webkit-scrollbar-track {
+        background: #374151;
+      }
+      
+      .dark .katex-display::-webkit-scrollbar-thumb {
+        background: #6b7280;
+      }
+      
+      .dark .katex-display::-webkit-scrollbar-thumb:hover {
+        background: #9ca3af;
+      }
+    }
+    
+    /* 移动端滚动指示器 */
+    .katex-display.scroll-right::after {
+      content: "→";
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 12px;
+      pointer-events: none;
+      animation: pulse 2s infinite;
+    }
+    
+    .katex-display.scroll-left::after {
+      content: "←";
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 12px;
+      pointer-events: none;
+      animation: pulse 2s infinite;
+    }
+    
+    .katex-display.scroll-both::before {
+      content: "←";
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 12px;
+      pointer-events: none;
+      animation: pulse 2s infinite;
+    }
+    
+    .katex-display.scroll-both::after {
+      content: "→";
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 12px;
+      pointer-events: none;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    
+    .dark .katex-display.scroll-right::after,
+    .dark .katex-display.scroll-left::after,
+    .dark .katex-display.scroll-both::before,
+    .dark .katex-display.scroll-both::after {
+      color: #999;
     }
   </style>
 </html>
