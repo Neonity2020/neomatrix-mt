@@ -9,20 +9,103 @@ document.addEventListener('DOMContentLoaded', function() {
     
     katexElements.forEach((element) => {
       const el = element;
-      // 强制设置最大宽度和溢出处理
-      el.style.maxWidth = '100%';
+      // 强制设置溢出处理
       el.style.boxSizing = 'border-box';
       
       if (el.classList.contains('katex-display')) {
         el.style.overflowX = 'auto';
         el.style.overflowY = 'hidden';
-        el.style.width = '100%';
+        el.style.maxWidth = 'none';
+        el.style.width = 'auto';
+        el.style.position = 'relative';
+      } else if (el.classList.contains('katex') && !el.classList.contains('katex-display')) {
+        // 行内公式换行设置
+        el.style.overflowX = 'visible';
+        el.style.overflowY = 'visible';
+        el.style.maxWidth = '100%';
+        el.style.width = 'auto';
+        el.style.whiteSpace = 'normal';
+        el.style.wordWrap = 'break-word';
+        el.style.wordBreak = 'break-all';
+        el.style.display = 'inline';
+        el.style.verticalAlign = 'baseline';
+        el.style.lineHeight = '1.4';
+        el.style.margin = '0 0.1em';
+        el.style.padding = '0.1em 0.2em';
+        el.style.borderRadius = '3px';
+        el.style.position = 'relative';
+        el.style.background = 'rgba(0, 0, 0, 0.03)';
+        el.style.border = '1px solid rgba(0, 0, 0, 0.1)';
       }
     });
   }
   
   // 立即执行约束
   enforceConstraints();
+  
+  // 处理行内公式换行
+  function handleInlineMathWrap() {
+    const inlineMathElements = document.querySelectorAll('.katex:not(.katex-display)');
+    
+    inlineMathElements.forEach((element) => {
+      const el = element;
+      
+      // 移除之前的事件监听器
+      if (el._touchStartHandler) {
+        el.removeEventListener('touchstart', el._touchStartHandler);
+        el.removeEventListener('touchmove', el._touchMoveHandler);
+        el.removeEventListener('touchend', el._touchEndHandler);
+      }
+      
+      // 确保换行设置正确
+      el.style.overflowX = 'visible';
+      el.style.overflowY = 'visible';
+      el.style.maxWidth = '100%';
+      el.style.width = 'auto';
+      el.style.whiteSpace = 'normal';
+      el.style.wordWrap = 'break-word';
+      el.style.wordBreak = 'break-all';
+      el.style.display = 'inline';
+      el.style.position = 'relative';
+      
+      // 添加视觉提示
+      el.style.background = 'rgba(0, 0, 0, 0.03)';
+      el.style.border = '1px solid rgba(0, 0, 0, 0.1)';
+      el.style.borderRadius = '3px';
+      el.style.padding = '0.1em 0.2em';
+      el.style.margin = '0 0.1em';
+      
+      // 移除滚动相关的属性
+      el.removeAttribute('title');
+      el.style.cursor = 'default';
+    });
+  }
+  
+  // 执行行内公式换行处理
+  handleInlineMathWrap();
+  
+  // 调试函数：检查行内公式状态
+  function debugInlineMath() {
+    const inlineMathElements = document.querySelectorAll('.katex:not(.katex-display)');
+    console.log(`找到 ${inlineMathElements.length} 个行内公式元素`);
+    
+    inlineMathElements.forEach((el, index) => {
+      console.log(`行内公式 ${index + 1}:`, {
+        scrollWidth: el.scrollWidth,
+        clientWidth: el.clientWidth,
+        overflowX: el.style.overflowX,
+        display: el.style.display,
+        whiteSpace: el.style.whiteSpace,
+        wordWrap: el.style.wordWrap,
+        wordBreak: el.style.wordBreak
+      });
+    });
+  }
+  
+  // 在移动端启用调试
+  if (isMobile) {
+    setTimeout(debugInlineMath, 1000);
+  }
   
   // 如果不在移动端，只执行约束
   if (!isMobile) return;
@@ -86,6 +169,9 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }
       });
+      
+      // 重新处理行内公式
+      handleInlineMathWrap();
     }
   });
   
@@ -94,6 +180,9 @@ document.addEventListener('DOMContentLoaded', function() {
     mutations.forEach(function(mutation) {
       if (mutation.type === 'childList') {
         enforceConstraints();
+        if (isMobile) {
+          handleInlineMathWrap();
+        }
       }
     });
   });
