@@ -38,6 +38,7 @@ const blogs = rawBlogs
     const { total, cn, en } = getBlogContentLength(post.id);
     return {
       id: post.id,
+      slug: post.slug,
       title: post.data.title,
       excerpt: post.data.excerpt ?? '',
       date: post.data.date instanceof Date ? post.data.date.toISOString().slice(0, 10) : post.data.date,
