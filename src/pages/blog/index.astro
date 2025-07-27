@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 const posts = await getCollection('blog');
+// console.log('Blog posts:', posts.map(p => ({ id: p.id, slug: p.slug, title: p.data.title })));
 ---
 
 <Layout title="博客列表">
@@ -14,7 +15,7 @@ const posts = await getCollection('blog');
             <img src={post.data.cover} alt={post.data.title} class="w-32 h-32 object-cover rounded-md" loading="lazy" />
           )}
           <div>
-            <a href={`/blog/${post.id}`} class="text-xl font-semibold hover:underline">
+            <a href={`/blog/${post.slug}`} class="text-xl font-semibold hover:underline">
               {post.data.title}
             </a>
             <div class="text-gray-500 text-sm mt-1">

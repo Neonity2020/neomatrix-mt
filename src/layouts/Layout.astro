@@ -18,6 +18,8 @@ const { title, metaDescription } = Astro.props;
     <title>{title} by NEONITY</title>
     <meta name="description" content={metaDescription} />
     <meta name="generator" content={Astro.generator} />
+    <!-- KaTeX CSS for LaTeX math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" />
     <!-- <BaseHead title={title}/> -->
     <script>
       (function() {
@@ -127,9 +129,83 @@ const { title, metaDescription } = Astro.props;
     }
     @font-face {
       font-family: 'Source Han Serif SC';
-      src: url('/fonts/SourceHanSerifSC-Regular.otf') format('opentype');
+      src: url('/fonts/SourceHanSerifCN-Regular.otf') format('opentype');
       font-weight: normal;
       font-style: normal;
+    }
+    
+    /* KaTeX custom styles for dark mode */
+    .dark .katex {
+      color: #e5e7eb;
+    }
+    
+    .dark .katex-display {
+      color: #e5e7eb;
+    }
+    
+    .dark .katex .mord {
+      color: #e5e7eb;
+    }
+    
+    .dark .katex .mbin {
+      color: #e5e7eb;
+    }
+    
+    .dark .katex .mrel {
+      color: #e5e7eb;
+    }
+    
+    .dark .katex .mopen {
+      color: #e5e7eb;
+    }
+    
+    .dark .katex .mclose {
+      color: #e5e7eb;
+    }
+    
+    .dark .katex .mpunct {
+      color: #e5e7eb;
+    }
+    
+    .dark .katex .mord.text {
+      color: #e5e7eb;
+    }
+    
+    /* Light mode KaTeX styles */
+    .katex {
+      color: #222;
+    }
+    
+    .katex-display {
+      color: #222;
+    }
+    
+    .katex .mord {
+      color: #222;
+    }
+    
+    .katex .mbin {
+      color: #222;
+    }
+    
+    .katex .mrel {
+      color: #222;
+    }
+    
+    .katex .mopen {
+      color: #222;
+    }
+    
+    .katex .mclose {
+      color: #222;
+    }
+    
+    .katex .mpunct {
+      color: #222;
+    }
+    
+    .katex .mord.text {
+      color: #222;
     }
   </style>
 </html>

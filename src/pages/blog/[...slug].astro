@@ -6,7 +6,7 @@ import { render } from 'astro:content';
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map(post => ({
-    params: { slug: post.id }
+    params: { slug: post.slug }
   }));
 }
 
@@ -14,9 +14,11 @@ type Props = CollectionEntry<'blog'>;
 
 const { slug } = Astro.params;
 const posts = await getCollection('blog');
-const post = posts.find(p => p.id === slug);
+const post = posts.find(p => p.slug === slug);
 const { Content } = await render(post as unknown as Props);
-// console.log(await getCollection('blog'));
+// console.log('Available posts:', posts.map(p => ({ id: p.id, slug: p.slug, title: p.data.title })));
+// console.log('Requested slug:', slug);
+// console.log('Found post:', post);
 ---
 
 <BlogPost
