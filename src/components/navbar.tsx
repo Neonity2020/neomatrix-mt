@@ -163,7 +163,8 @@ export default function ComplexNavbar() {
       <div className="flex items-center">
         <Typography
           as="a"
-          href="/landing"
+          href="/"
+          data-astro-prefetch
           type="small"
           className="ml-2 mr-2 block py-1 font-semibold dark:text-primary-300"
         >
@@ -188,6 +189,7 @@ export default function ComplexNavbar() {
                 <Card
                   as="a"
                   href="/landing"
+                  data-astro-prefetch
                   color="primary"
                   className="col-span-2 grid place-items-center rounded-[5px] px-8 py-4 text-primary-foreground shadow-none dark:bg-gray-800 dark:text-gray-100 cursor-pointer hover:opacity-90 transition-opacity"
                 >

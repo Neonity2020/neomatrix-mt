@@ -9,6 +9,7 @@ import MaximWrapper from "../components/landing/MaximWrapper";
 import { getCollection } from 'astro:content';
 import fs from 'fs';
 import path from 'path';
+import TabsWithIcon from "../components/tab";
 
 function getBlogContentLength(id: string): { total: number, cn: number, en: number } {
   const blogDir = path.join(process.cwd(), 'src/content/blog');
@@ -52,7 +53,7 @@ const blogs = rawBlogs
 ---
 
 <Layout title="NeoMatrix">
-  <main>
+  <main class="max-w-[375px] mx-auto mt-4 md:max-w-[684px] md:mx-auto">
     <h1 class="text-center text-2xl font-bold mt-10 dark:text-white mb-10">Landing Page</h1>
     <MaximWrapper client:only="react" />
     <!-- <CategoriesSection client:only="react" /> -->
@@ -67,6 +68,9 @@ const blogs = rawBlogs
           </li>
         ))}
       </ul>
+    </div>
+    <div class="mt-8 p-4 bg-gray-50 dark:bg-gray-800 rounded">
+      <TabsWithIcon client:only="react" />
     </div>
     <!-- <BasicSection client:only="react" /> -->
     <!-- <TestimonialSection client:only="react" /> -->

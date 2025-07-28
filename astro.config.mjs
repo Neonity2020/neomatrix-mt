@@ -9,6 +9,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
+  prefetch: true,
   integrations: [react(), tailwind(), mdx()],
   markdown: {
     syntaxHighlight: 'shiki',
