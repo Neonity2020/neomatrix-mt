@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import QRCode from "../components/qrcode";
 ---
 <Layout title="关于 NeoMatrix">
   <main class="max-w-[684px] mx-auto py-12 px-4 md:px-0 mt-10">
@@ -24,15 +25,27 @@ import Layout from "../layouts/Layout.astro";
         </div>
       </div>
       <p class="text-gray-600 dark:text-gray-400 text-sm">
-        热爱技术、写作与分享，致力于用代码和内容帮助更多人高效成长。
+        磁共振产品经理、热爱技术、写作与分享，致力于用代码和内容帮助更多人高效成长。
       </p>
     </section>
     <section>
       <h2 class="text-xl font-semibold mb-2 dark:text-gray-200">联系方式</h2>
-      <ul class="text-gray-700 dark:text-gray-300">
+      <ul class="text-gray-700 dark:text-gray-300 mb-6">
         <li>Email: <a href="mailto:neonity@aliyun.com" class="text-blue-600 dark:text-blue-400 underline">neonity@aliyun.com</a></li>
         <li>GitHub: <a href="https://github.com/neonity2020" target="_blank" class="text-blue-600 dark:text-blue-400 underline">github.com/neonity2020</a></li>
       </ul>
+      
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-4 dark:text-gray-200">关注公众号</h3>
+        <div class="flex justify-center">
+          <QRCode 
+            title="认知凤凰社"
+            description="扫码关注，获取更多干货"
+            imageSrc="/images/wechat-blog.jpg"
+            imageAlt="认知凤凰社公众号二维码"
+          />
+        </div>
+      </div>
     </section>
   </main>
 </Layout>
