@@ -24,6 +24,53 @@ interface NoteItem {
   createdAt: Date;
 }
 
+// 解析 Markdown 格式的文本
+const parseMarkdownText = (text: string) => {
+  // 将文本按行分割
+  const lines = text.split('\n');
+  
+  return lines.map((line, index) => {
+    // 检查是否是列表项（以 "- " 或 "* " 开头）
+    const listItemMatch = line.match(/^(\s*)([-*])\s+(.+)$/);
+    
+    if (listItemMatch) {
+      const [, indent, marker, content] = listItemMatch;
+      const indentLevel = indent.length / 2; // 假设每级缩进是2个空格
+      
+      // 根据缩进级别选择项目符号样式
+      const getBulletSymbol = (level: number) => {
+        if (level % 2 === 0) {
+          // 偶数级别使用实心圆
+          return '•';
+        } else {
+          // 奇数级别使用空心圆
+          return '◦';
+        }
+      };
+      
+      return (
+        <div 
+          key={index} 
+          className="flex items-center gap-2"
+          style={{ marginLeft: `${indentLevel * 1.5}rem` }}
+        >
+          <span className="text-gray-500 dark:text-gray-400 flex-shrink-0 w-4 text-center">
+            {getBulletSymbol(indentLevel)}
+          </span>
+          <span className="flex-1">{content}</span>
+        </div>
+      );
+    }
+    
+    // 如果不是列表项，直接返回原文本
+    return (
+      <div key={index} className="whitespace-pre-wrap">
+        {line}
+      </div>
+    );
+  });
+};
+
 export default function NoteComponent() {
   const [notes, setNotes] = React.useState<NoteItem[]>([]);
   const [editingNote, setEditingNote] = React.useState<string | null>(null);
@@ -200,6 +247,70 @@ export default function NoteComponent() {
     setEditingContent(null);
   };
 
+  // 处理Tab键和Shift+Tab键的层级控制
+  const handleTextareaKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>, isEditing: boolean = false) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      
+      const textarea = e.currentTarget;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const value = textarea.value;
+      
+      // 获取当前行的内容
+      const lines = value.split('\n');
+      let currentLineIndex = 0;
+      let currentPosition = 0;
+      
+      // 找到当前光标所在的行
+      for (let i = 0; i < lines.length; i++) {
+        if (currentPosition <= start && start <= currentPosition + lines[i].length + 1) {
+          currentLineIndex = i;
+          break;
+        }
+        currentPosition += lines[i].length + 1;
+      }
+      
+      const currentLine = lines[currentLineIndex];
+      
+      if (e.shiftKey) {
+        // Shift + Tab: 减少缩进
+        if (currentLine.startsWith('  ')) {
+          // 移除2个空格的缩进
+          lines[currentLineIndex] = currentLine.substring(2);
+          
+          // 更新内容
+          const newValue = lines.join('\n');
+          if (isEditing) {
+            setEditingContent(editingContent ? { ...editingContent, content: newValue } : { title: '', content: newValue });
+          } else {
+            setNewNote({ ...newNote, content: newValue });
+          }
+          
+          // 调整光标位置
+          setTimeout(() => {
+            textarea.setSelectionRange(start - 2, end - 2);
+          }, 0);
+        }
+      } else {
+        // Tab: 增加缩进
+        // 在光标位置插入2个空格
+        const newValue = value.substring(0, start) + '  ' + value.substring(end);
+        
+        if (isEditing) {
+          setEditingContent(editingContent ? { ...editingContent, content: newValue } : { title: '', content: newValue });
+        } else {
+          setNewNote({ ...newNote, content: newValue });
+        }
+        
+        // 调整光标位置
+        setTimeout(() => {
+          textarea.setSelectionRange(start + 2, start + 2);
+        }, 0);
+      }
+    }
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
       {/* 复制成功提示 */}
@@ -290,6 +401,7 @@ export default function NoteComponent() {
                 className="min-h-[100px] dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
                 value={newNote.content}
                 onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
+                onKeyDown={(e) => handleTextareaKeyDown(e, false)}
               />
               <Button 
                 onClick={addNote}
@@ -334,6 +446,7 @@ export default function NoteComponent() {
                       className="min-h-[100px] dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
                       value={editingContent?.content ?? ''}
                       onChange={(e) => setEditingContent(editingContent ? { ...editingContent, content: e.target.value } : { title: '', content: e.target.value })}
+                      onKeyDown={(e) => handleTextareaKeyDown(e, true)}
                     />
                     <div className="flex gap-2">
                       <Button 
@@ -391,9 +504,9 @@ export default function NoteComponent() {
                         </IconButton>
                       </div>
                     </div>
-                    <Typography className="mb-3 whitespace-pre-wrap dark:text-gray-200">
-                      {note.content}
-                    </Typography>
+                    <div className="mb-3 dark:text-gray-200">
+                      {parseMarkdownText(note.content)}
+                    </div>
                     <Typography variant="small" color="secondary" className="text-right dark:text-gray-400">
                       {formatDate(note.createdAt)}
                     </Typography>
