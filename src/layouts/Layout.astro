@@ -1,6 +1,7 @@
 ---
 import ThemeProvider from "../components/theme-provider";
 import Navbar from "../components/navbar.tsx";
+import Footer from "../components/footer.tsx";
 export interface Props {
   title: string;
   metaDescription?: string;
@@ -45,8 +46,8 @@ const { title, metaDescription } = Astro.props;
         </div>
         <slot /> <!-- your content is injected here -->
       </article>
+      <Footer client:only="react" />
     </ThemeProvider>
-    <!-- <Footer /> -->
   </body>
   <style>
     body {

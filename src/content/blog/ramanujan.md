@@ -1,10 +1,10 @@
 ---
-title: 拉玛努金的故事
+title: 拉马努金的故事
 date: 2025-07-30
 author: Neonity
 category: AIGS
 tags:
-  - 拉玛努金
+  - 拉马努金
   - AI生成故事
   - 数学家
 cover: /images/ramanujan.jpg
